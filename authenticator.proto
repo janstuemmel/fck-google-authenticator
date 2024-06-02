@@ -1,0 +1,34 @@
+syntax="proto3";
+
+option go_package = "./authenticator";
+
+package main;
+
+message AuthenticatorExport {
+      enum OtpType {
+            OTP_INVALID = 0;
+            OTP_HOTP = 1;
+            OTP_TOTP = 2;
+      }
+
+      enum OtpAlgo {
+            ALGO_INVALID = 0;
+            SHA1 = 1;
+      }
+
+      message Otp {
+            bytes secret = 1;
+            string name = 2;
+            string issuer = 3;
+            OtpAlgo algo = 4;
+            int32 digits = 5;
+            OtpType type = 6;
+            int64 counter = 7;
+      }
+
+      repeated Otp otp = 1;
+      int32 version = 2;
+      int32 size = 3;
+      int32 index = 4;
+      int32 id = 5;
+}
